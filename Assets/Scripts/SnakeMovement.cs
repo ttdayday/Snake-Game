@@ -5,26 +5,28 @@ using UnityEngine;
 public class SnakeMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float moveSpeed = 5f;
+   
     private Vector2Int gridPosition;
     private Vector2Int moveDirection;
-    private float stepDelay = 0.05f;
+    public float stepDelay = 0.5f;
     private float nextStepTime;
     private Vector2Int nextDirection;
+    private int startX = -6;
+    private int startY = 0;
 
 
     void Start()
     {
-        gridPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+        gridPosition = new Vector2Int(startX,startY);
         moveDirection = Vector2Int.zero;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        HandleInput();
         if (Time.time >= nextStepTime)
-        {
-            HandleInput();
+        {            
             if (nextDirection != Vector2Int.zero)
             {
                 moveDirection = nextDirection; 
@@ -63,6 +65,17 @@ public class SnakeMovement : MonoBehaviour
     {
         gridPosition += moveDirection;
         transform.position = new Vector3(gridPosition.x, gridPosition.y, transform.position.z);
+
+        if (moveDirection != Vector2Int.zero)
+        {
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        }
         Debug.Log("Grid Position:" + gridPosition + ", Move Direction:" + moveDirection);
+
     }
+
+
+       
+
 }
