@@ -11,13 +11,16 @@ public class SnakeMovement : MonoBehaviour
     public float stepDelay = 0.5f;
     private float nextStepTime;
     private Vector2Int nextDirection;
-    private int startX = -6;
-    private int startY = 0;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    private float t; 
+   
+   
 
 
     void Start()
     {
-        gridPosition = new Vector2Int(startX,startY);
+        gridPosition = new Vector2Int(-6,0);
         moveDirection = Vector2Int.zero;
     }
 
@@ -29,52 +32,49 @@ public class SnakeMovement : MonoBehaviour
         {            
             if (nextDirection != Vector2Int.zero)
             {
-                moveDirection = nextDirection; 
+                moveDirection = nextDirection;
+                startPosition = transform.position;
+                gridPosition += moveDirection;
+                endPosition = new Vector3(gridPosition.x, gridPosition.y, transform.position.z);
+                t = 0;
+                nextStepTime = Time.time + stepDelay;
             }
-
-            Move();
-            nextStepTime = Time.time + stepDelay;
+                        
+        }
+        if (moveDirection != Vector2Int.zero)
+        {
+            t += Time.deltaTime / stepDelay;
+            transform.position = Vector3.Lerp(startPosition, endPosition, t);
+            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && moveDirection != Vector2Int.down)
         {
             nextDirection = Vector2Int.up;
             Debug.Log("UP");
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.S) && moveDirection != Vector2Int.up)
         {
             nextDirection = Vector2Int.down;
             Debug.Log("down");
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.A) && moveDirection != Vector2Int.right)
         {
             nextDirection = Vector2Int.left;
             Debug.Log("left");
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) && moveDirection != Vector2Int.left)
         {
             nextDirection = Vector2Int.right;
             Debug.Log("right");
         }
     }
 
-    private void Move()
-    {
-        gridPosition += moveDirection;
-        transform.position = new Vector3(gridPosition.x, gridPosition.y, transform.position.z);
-
-        if (moveDirection != Vector2Int.zero)
-        {
-            float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
-        Debug.Log("Grid Position:" + gridPosition + ", Move Direction:" + moveDirection);
-
-    }
-
+   
 
        
 
