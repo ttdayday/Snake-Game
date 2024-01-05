@@ -1,3 +1,8 @@
+# Add ProjectSettings and Packages to version control
+!/ProjectSettings/
+!/Packages/
+
+# Rest of your .gitignore contents...
 # This is a sample .gitignore file for Unity projects
 
 # Ignore all files and directories that are unnecessary to track in version control
