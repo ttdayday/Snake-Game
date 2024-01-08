@@ -6,21 +6,22 @@ public class SnakeMovement : MonoBehaviour
 {
     // Start is called before the first frame update
    
-    private Vector2Int gridPosition;
+    private Vector2Int headPosition;
     private Vector2Int moveDirection;
     public float stepDelay = 0.5f;
     private float nextStepTime;
     private Vector2Int nextDirection;
     private Vector3 startPosition;
     private Vector3 endPosition;
-    private float t; 
-   
+    private float t;
+ 
+
    
 
 
     void Start()
     {
-        gridPosition = new Vector2Int(-6,0);
+        headPosition = new Vector2Int(-6,0);
         moveDirection = Vector2Int.zero;
     }
 
@@ -34,8 +35,8 @@ public class SnakeMovement : MonoBehaviour
             {
                 moveDirection = nextDirection;
                 startPosition = transform.position;
-                gridPosition += moveDirection;
-                endPosition = new Vector3(gridPosition.x, gridPosition.y, transform.position.z);
+                headPosition += moveDirection;
+                endPosition = new Vector3(headPosition.x, headPosition.y, transform.position.z);
                 t = 0;
                 nextStepTime = Time.time + stepDelay;
             }
@@ -48,6 +49,7 @@ public class SnakeMovement : MonoBehaviour
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+        
     }
 
     private void HandleInput()
@@ -74,8 +76,17 @@ public class SnakeMovement : MonoBehaviour
         }
     }
 
-   
+    public Vector2Int GetCurrentHeadPosition()
+    {
+        return headPosition;
+    }
 
-       
-
+    public Vector2Int GetMoveDirection()
+    {
+        return moveDirection;
+    }
 }
+
+
+
+
