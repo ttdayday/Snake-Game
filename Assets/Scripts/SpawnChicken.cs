@@ -7,35 +7,28 @@ public class SpawnChicken : MonoBehaviour
     public GameObject chickenPrefab;
     private int gridWidth = 19;
     private int gridHeight = 19;
-    private Vector2Int initialSpawnPosition = new Vector2Int(3, 0);
 
     void Start()
     {
-        Instantiate(chickenPrefab, new Vector3(initialSpawnPosition.x, initialSpawnPosition.y, 0), Quaternion.identity);
+        SpawnAtRandomLocation();
     }
 
-    public void SpawnAtRandomLocation(Vector2Int snakeHeadPosition, Vector2Int snakeMoveDirection)
+    private void SpawnAtRandomLocation()
     {
-        Vector2Int spawnPosition;
-        do
-        {
-            spawnPosition = new Vector2Int(Random.Range(0, gridWidth), Random.Range(0, gridHeight));
-        }
-        while (IsOnSameLine(spawnPosition, snakeHeadPosition, snakeMoveDirection));
+        // Since Random.Range for integers is exclusive on the upper bound,
+        // and our grid is from 0 to 18 (which is 19 units),
+        // we use gridWidth and gridHeight directly.
+        int x = Random.Range(0, gridWidth);  // 0 to 18
+        int y = Random.Range(0, gridHeight); // 0 to 18
 
-        Instantiate(chickenPrefab, new Vector3(spawnPosition.x, spawnPosition.y, 0), Quaternion.identity);
-    }
+        // Translate the grid position (0-18) to world position (-9 to 9)
+        // by subtracting half the grid size (which is 9 for a 19x19 grid),
+        // but since our indices start at 0, we don't need to add 1 to the gridWidth/Height before dividing by 2.
+        float worldX = x - gridWidth / 2;  // This will give us -9 to 9
+        float worldY = y - gridHeight / 2; // This will give us -9 to 9
 
-    private bool IsOnSameLine(Vector2Int position, Vector2Int headPosition, Vector2Int moveDirection)
-    {
-        if (moveDirection.x != 0) // Snake is moving horizontally
-        {
-            return position.y == headPosition.y;
-        }
-        else if (moveDirection.y != 0) // Snake is moving vertically
-        {
-            return position.x == headPosition.x;
-        }
-        return false;
+        // Instantiate the chicken prefab at the calculated world position
+        Vector3 spawnPosition = new Vector3(worldX, worldY, 0); // Assuming you want to spawn at z = 0
+        Instantiate(chickenPrefab, spawnPosition, Quaternion.identity);
     }
 }
