@@ -13,17 +13,11 @@ public class SpawnChicken : MonoBehaviour
         SpawnAtRandomLocation();
     }
 
-    private void SpawnAtRandomLocation()
+    public void SpawnAtRandomLocation()
     {
-        // Since Random.Range for integers is exclusive on the upper bound,
-        // and our grid is from 0 to 18 (which is 19 units),
-        // we use gridWidth and gridHeight directly.
         int x = Random.Range(0, gridWidth);  // 0 to 18
         int y = Random.Range(0, gridHeight); // 0 to 18
 
-        // Translate the grid position (0-18) to world position (-9 to 9)
-        // by subtracting half the grid size (which is 9 for a 19x19 grid),
-        // but since our indices start at 0, we don't need to add 1 to the gridWidth/Height before dividing by 2.
         float worldX = x - gridWidth / 2;  // This will give us -9 to 9
         float worldY = y - gridHeight / 2; // This will give us -9 to 9
 
