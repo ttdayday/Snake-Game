@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1078171017}
   - component: {fileID: 1078171018}
+  - component: {fileID: 1078171019}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -168,6 +169,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chickenPrefab: {fileID: 1591430896664761156, guid: c4587d5a2664add4c846c898fe32c2c2, type: 3}
+--- !u!114 &1078171019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078171016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b5a6f62d6d58f45a6a0afeccfaca50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snakeHeadPrefab: {fileID: 2073017440687426849, guid: 6da8505f9d41ff74b8a665f5038d42d9, type: 3}
+  snakeBodyPrefab: {fileID: 7655048995010652361, guid: a1d16bdc9c7bd574fb5cf77a157ff058, type: 3}
+  snakeTailPrefab: {fileID: 878696268661979219, guid: b182729f8e029c441a2585b65ba1184d, type: 3}
 --- !u!1 &1272179156
 GameObject:
   m_ObjectHideFlags: 0
