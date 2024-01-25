@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public SnakeMovement snakeMovement;
     public GameObject snakeHeadPrefab;
     public GameObject snakeBodyPrefab;
     public GameObject snakeTailPrefab;
@@ -26,9 +27,20 @@ public class GameManager : MonoBehaviour
         // Instantiate and store the tail
         GameObject tail = Instantiate(snakeTailPrefab, tailPosition, Quaternion.identity);
         snakeSegments.Add(tail);
+
+        if (snakeMovement != null)
+        {
+            snakeMovement.SetSnakeHead(head);
+        }
+        else
+        {
+            Debug.LogError("SnakeMovement script not assigned in GameManager.");
+        }
     }
 
     // Update is called once per frame
+
+
     void Update()
     {
         

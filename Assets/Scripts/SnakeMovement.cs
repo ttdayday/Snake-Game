@@ -9,6 +9,7 @@ public class SnakeMovement : MonoBehaviour
     private Vector2 moveDirection;
     public float stepDelay = 0.5f;
     private float nextStepTime;
+    public GameObject snakeBodyPrefab;
 
     private List<GameObject> snakeSegments = new List<GameObject>();
     void Start()
@@ -62,19 +63,16 @@ public class SnakeMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Chicken"))
         {
             Destroy(other.gameObject);
-            Grow();
+            //Grow();
             spawnChicken.SpawnAtRandomLocation();
         }
     }
 
-    public void Grow()
+   
+    public void SetSnakeHead(GameObject head)
     {
-         Vector2 newSegmentPosition = snakeSegments[snakeSegments.Count - 2].transform.position;
-
-        // Instantiate a new body segment at the position of the current tail
-        GameObject newSegment = Instantiate(snakeBodyPrefab, newSegmentPosition, Quaternion.identity);
-
-        // Insert the new body segment before the tail in the list
-        snakeSegments.Insert(snakeSegments.Count - 1, newSegment);
+        snakeSegments.Insert(0, head);
+        // Set this snakeMovement script to the head object so it can control it
+        head.GetComponent<SnakeMovement>().enabled = true;
     }
 }
