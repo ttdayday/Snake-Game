@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,40 @@ public class SnakeMovement : MonoBehaviour
     private float nextStepTime;
     public GameObject snakeBodyPrefab;
 
-    private List<GameObject> snakeSegments = new List<GameObject>();
-    void Start()
+    public List<GameObject> snakeSegments = new List<GameObject>();
+    private List<Vector2> segmentPositions = new List<Vector2>();
+
+    private void Start()
     {
-        
+        foreach (var segment in snakeSegments)
+        {
+            segmentPositions.Add(segment.transform.position);
+        }
     }
     void Update()
     {
         HandleInput();
         if (Time.time >= nextStepTime)
         {
+            MoveSnake(); 
             transform.position = new Vector2(transform.position.x + moveDirection.x, transform.position.y + moveDirection.y);
             nextStepTime = Time.time + stepDelay;
+        }
+    }
+    private void MoveSnake()
+    {
+        // Store the current head position
+        Vector2 previousPosition = transform.position;
+
+        // Move the head
+        transform.position = new Vector2(transform.position.x + moveDirection.x, transform.position.y + moveDirection.y);
+
+        // Move each segment to the position of the segment in front of it
+        for (int i = 1; i < snakeSegments.Count; i++)
+        {
+            Vector2 temp = snakeSegments[i].transform.position;
+            snakeSegments[i].transform.position = previousPosition;
+            previousPosition = temp;
         }
     }
 
@@ -74,5 +97,10 @@ public class SnakeMovement : MonoBehaviour
         snakeSegments.Insert(0, head);
         // Set this snakeMovement script to the head object so it can control it
         head.GetComponent<SnakeMovement>().enabled = true;
+    }
+
+    internal void Initialize(SpawnChicken chikenSpawner)
+    {
+        spawnChicken = chikenSpawner;
     }
 }

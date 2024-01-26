@@ -125,11 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87874507adeb1f04f8d82948714fdc3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snakeHeadPrefab: {fileID: 2073017440687426849}
-  snakeBodyPrefab: {fileID: 7655048995010652361, guid: a1d16bdc9c7bd574fb5cf77a157ff058, type: 3}
-  snakeTailPrefab: {fileID: 878696268661979219, guid: b182729f8e029c441a2585b65ba1184d, type: 3}
   spawnChicken: {fileID: 0}
   stepDelay: 0.5
+  snakeBodyPrefab: {fileID: 7655048995010652361, guid: a1d16bdc9c7bd574fb5cf77a157ff058, type: 3}
+  snakeSegments:
+  - {fileID: 2073017440687426849}
+  - {fileID: 7655048995010652361, guid: a1d16bdc9c7bd574fb5cf77a157ff058, type: 3}
+  - {fileID: 878696268661979219, guid: b182729f8e029c441a2585b65ba1184d, type: 3}
 --- !u!50 &3585732992097818662
 Rigidbody2D:
   serializedVersion: 4
