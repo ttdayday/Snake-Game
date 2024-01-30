@@ -14,7 +14,7 @@ public class SnakeMovement : MonoBehaviour
 
     public List<GameObject> snakeSegments = new List<GameObject>();
     private List<Vector2> segmentPositions = new List<Vector2>();
-
+     
     private void Start()
     {
         foreach (var segment in snakeSegments)
@@ -28,7 +28,6 @@ public class SnakeMovement : MonoBehaviour
         if (Time.time >= nextStepTime)
         {
             MoveSnake(); 
-            transform.position = new Vector2(transform.position.x + moveDirection.x, transform.position.y + moveDirection.y);
             nextStepTime = Time.time + stepDelay;
         }
     }
@@ -94,7 +93,7 @@ public class SnakeMovement : MonoBehaviour
    
     public void SetSnakeHead(GameObject head)
     {
-        snakeSegments.Insert(0, head);
+      //  snakeSegments.Insert(0, head);
         // Set this snakeMovement script to the head object so it can control it
         head.GetComponent<SnakeMovement>().enabled = true;
     }

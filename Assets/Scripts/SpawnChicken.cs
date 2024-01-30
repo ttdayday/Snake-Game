@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnChicken : MonoBehaviour
-{
+{  
     public GameObject chickenPrefab;
     private int gridWidth = 19;
     private int gridHeight = 19;
