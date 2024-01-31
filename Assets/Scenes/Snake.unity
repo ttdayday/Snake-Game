@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b5a6f62d6d58f45a6a0afeccfaca50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snakeMovement: {fileID: 3585732992097818681, guid: 6da8505f9d41ff74b8a665f5038d42d9, type: 3}
   snakeHeadPrefab: {fileID: 2073017440687426849, guid: 6da8505f9d41ff74b8a665f5038d42d9, type: 3}
   snakeBodyPrefab: {fileID: 7655048995010652361, guid: a1d16bdc9c7bd574fb5cf77a157ff058, type: 3}
   snakeTailPrefab: {fileID: 878696268661979219, guid: b182729f8e029c441a2585b65ba1184d, type: 3}
