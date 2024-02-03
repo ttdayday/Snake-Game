@@ -93,12 +93,36 @@ public class SnakeMovement : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
+    public void Grow()
+    {
+        // Check if there are enough segments for growth logic.
+        if (snakeSegments.Count < 2)
+        {
+            Debug.LogError("Not enough segments to apply growth logic.");
+            return;
+        }
+
+        // The position for the new segment is the current position of the last body segment before the tail.
+        // This is the second to last item in the snakeSegments list.
+        Vector2 positionForNewSegment = snakeSegments[snakeSegments.Count - 2].transform.position;
+
+        // Instantiate the new body segment at the position of the last body segment.
+        GameObject newSegment = Instantiate(snakeBodyPrefab, positionForNewSegment, Quaternion.identity);
+
+        // Insert the new body segment into the list right before the tail segment.
+        // This ensures the tail remains the last item in the list.
+        snakeSegments.Insert(snakeSegments.Count - 1, newSegment);
+        // Also, insert the position in the snakePosition list for consistent logic.
+        snakePosition.Insert(snakePosition.Count - 1, positionForNewSegment);
+    }
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Chicken"))
         {
             Destroy(other.gameObject);
-            //Grow();
+            Grow();
             SpawnChicken.SpawnAtRandomLocation();
         }
     }
@@ -116,4 +140,5 @@ public class SnakeMovement : MonoBehaviour
     {
         SpawnChicken = chikenSpawner;
     }
+    
 }

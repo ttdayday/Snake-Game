@@ -16,8 +16,7 @@ public class GameManager : MonoBehaviour
 
         Vector2 headPosition = new Vector2(-6, 0);
         Vector2 bodyPosition = new Vector2(-7, 0);
-        Vector2 bodyBPosition = new Vector2(-8, 0);
-        Vector2 tailPosition = new Vector2(-9, 0);
+        Vector2 tailPosition = new Vector2(-8, 0);
 
         // Instantiate and store the head
         GameObject head = Instantiate(snakeHeadPrefab, headPosition, Quaternion.identity);
@@ -32,10 +31,7 @@ public class GameManager : MonoBehaviour
         // Add the body to the snakeSegments list in SnakeMovement
         movement.AddSnakeSegment(body);
 
-        // Instantiate and store the initial body segment
-        GameObject bodyB = Instantiate(snakeBodyPrefab, bodyBPosition, Quaternion.identity);
-        // Add the body to the snakeSegments list in SnakeMovement
-        movement.AddSnakeSegment(bodyB);
+   
 
         // Instantiate and store the tail
         GameObject tail = Instantiate(snakeTailPrefab, tailPosition, Quaternion.identity);
@@ -50,4 +46,9 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+
+    //questions:
+    //make the collider for chicken smaller to avoid mistakenly eaten. is this a good way or should use code for this?
+
 }
