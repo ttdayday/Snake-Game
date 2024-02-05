@@ -30,6 +30,11 @@ public class SnakeMovement : MonoBehaviour
             nextStepTime = Time.time + stepDelay;
         }
     }
+
+    public List<Vector2> GetSnakePosition()
+    {
+        return snakePosition;
+    }
     private void MoveSnake()
     {
         if(moveDirection.magnitude == 0)

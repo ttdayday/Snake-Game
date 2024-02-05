@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chickenPrefab: {fileID: 1591430896664761156, guid: c4587d5a2664add4c846c898fe32c2c2, type: 3}
+  snakeMovement: {fileID: 3585732992097818681, guid: 6da8505f9d41ff74b8a665f5038d42d9, type: 3}
 --- !u!114 &1078171019
 MonoBehaviour:
   m_ObjectHideFlags: 0
