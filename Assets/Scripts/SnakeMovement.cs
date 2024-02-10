@@ -7,12 +7,16 @@ public class SnakeMovement : MonoBehaviour
 {
     public SpawnChicken SpawnChicken;
     private Vector2 moveDirection;
-    public float stepDelay = 0.5f;
+    public float stepDelay = 0.3f;
     private float nextStepTime;
     public GameObject snakeBodyPrefab;
 
     private List<GameObject> snakeSegments = new List<GameObject>();
     private List<Vector2> snakePosition = new List<Vector2>();
+
+    private int gridWidth = 19;
+    private int gridHeight = 19;
+    public GameObject headDeadPrefab;
 
     private void Start()
     {
@@ -23,11 +27,20 @@ public class SnakeMovement : MonoBehaviour
     }
     void Update()
     {
-        HandleInput(); 
+        HandleInput();
+
         if (Time.time >= nextStepTime)
         {
-            MoveSnake(); 
-            nextStepTime = Time.time + stepDelay;
+            Vector2 nextPosition = (Vector2)transform.position + moveDirection;
+            if (!WillHitBoundary(nextPosition))
+            {
+                MoveSnake();
+                nextStepTime = Time.time + stepDelay;
+            }
+            else
+            {
+                GameOver();
+            }
         }
     }
 
@@ -145,5 +158,33 @@ public class SnakeMovement : MonoBehaviour
     {
         SpawnChicken = chikenSpawner;
     }
-    
+
+   
+    private bool WillHitBoundary(Vector2 nextPosition)
+    {
+        float leftBoundary = -gridWidth / 2 -1;
+        float rightBoundary = gridWidth / 2 +1;
+        float topBoundary = gridHeight / 2  +1;
+        float bottomBoundary = -gridHeight / 2 -1;
+
+        return nextPosition.x <= leftBoundary || nextPosition.x >= rightBoundary || nextPosition.y <= bottomBoundary || nextPosition.y >= topBoundary;
+    }
+    private void GameOver()
+    {
+        Debug.Log("Game Over!");
+        enabled = false;
+        Color deadColor = headDeadPrefab.GetComponent<SpriteRenderer>().color;
+        foreach (GameObject segment in snakeSegments)
+        {
+            SpriteRenderer segmentRenderer = segment.GetComponent<SpriteRenderer>();
+            if (segmentRenderer != null)
+            {
+                segmentRenderer.color = deadColor;
+            }
+        }
+        Instantiate(headDeadPrefab, transform.position, transform.rotation);
+        Destroy(gameObject);
+
+    }
+
 }
