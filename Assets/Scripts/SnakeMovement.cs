@@ -137,6 +137,11 @@ public class SnakeMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("SnakeBody"))
+        {
+            GameOver();
+        }
+
         if (other.gameObject.CompareTag("Chicken"))
         {
             Destroy(other.gameObject);
