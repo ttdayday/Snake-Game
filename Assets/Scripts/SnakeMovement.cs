@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SnakeMovement : MonoBehaviour
 {
+    public GameManager gameManager;
+
     public SpawnChicken SpawnChicken;
     private Vector2 moveDirection;
     public float stepDelay = 0.3f;
@@ -183,7 +185,14 @@ public class SnakeMovement : MonoBehaviour
             }
         }
         Instantiate(headDeadPrefab, transform.position, transform.rotation);
-        Destroy(gameObject);
+        if (gameManager != null)
+        {
+            gameManager.GameOver();
+        }
+        else
+        {
+            Debug.LogError("GameManager not set in SnakeMovement.");
+        }
 
     }
 

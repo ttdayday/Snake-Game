@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,9 +10,18 @@ public class GameManager : MonoBehaviour
     public GameObject snakeHeadPrefab;
     public GameObject snakeBodyPrefab;
     public GameObject snakeTailPrefab;
+    public Button restartButton;
 
     private SpawnChicken chikenSpawner;
+    private GameObject currentSnakeHead;
     void Start()
+    {
+        restartButton.gameObject.SetActive(false);
+        restartButton.onClick.AddListener(RestartGame);
+        InitializeGame();
+    }
+
+    void InitializeGame()
     {
         chikenSpawner = GetComponent<SpawnChicken>();
 
@@ -31,15 +42,26 @@ public class GameManager : MonoBehaviour
         // Add the body to the snakeSegments list in SnakeMovement
         movement.AddSnakeSegment(body);
 
-   
+
 
         // Instantiate and store the tail
         GameObject tail = Instantiate(snakeTailPrefab, tailPosition, Quaternion.identity);
         // Add the tail to the snakeSegments list in SnakeMovement
         movement.AddSnakeSegment(tail);
     }
-
     // Update is called once per frame
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over!");
+        restartButton.gameObject.SetActive(true);
+    }
+
+    void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 
 
     void Update()
