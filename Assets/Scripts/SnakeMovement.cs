@@ -8,6 +8,9 @@ public class SnakeMovement : MonoBehaviour
     public SpawnChicken SpawnChicken;
     private Vector2 moveDirection;
     public float stepDelay = 0.3f;
+    public float speedIncrease = 0.05f;
+    public float minimumStepDelay = 0.1f;
+
     private float nextStepTime;
     public GameObject snakeBodyPrefab;
 
@@ -132,6 +135,7 @@ public class SnakeMovement : MonoBehaviour
         snakeSegments.Insert(snakeSegments.Count - 1, newSegment);
         // Also, insert the position in the snakePosition list for consistent logic.
         snakePosition.Insert(snakePosition.Count - 1, positionForNewSegment);
+        stepDelay = Mathf.Max(stepDelay - speedIncrease, minimumStepDelay);
     }
 
 
