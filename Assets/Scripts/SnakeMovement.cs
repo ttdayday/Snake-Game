@@ -156,9 +156,10 @@ public class SnakeMovement : MonoBehaviour
         
     }
 
-    internal void Initialize(SpawnChicken chikenSpawner)
+    public void Initialize(SpawnChicken chikenSpawner, GameManager gameManager)
     {
         SpawnChicken = chikenSpawner;
+        this.gameManager = gameManager;
     }
 
    
@@ -195,5 +196,4 @@ public class SnakeMovement : MonoBehaviour
         }
 
     }
-
 }

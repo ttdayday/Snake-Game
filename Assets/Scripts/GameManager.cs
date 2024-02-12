@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         InitializeGame();
     }
 
-    void InitializeGame()
+    public void InitializeGame()
     {
         chikenSpawner = GetComponent<SpawnChicken>();
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         // Instantiate and store the head
         GameObject head = Instantiate(snakeHeadPrefab, headPosition, Quaternion.identity);
         SnakeMovement movement = head.GetComponent<SnakeMovement>();
-        movement.Initialize(chikenSpawner);
+        movement.Initialize(chikenSpawner, this);
 
         // Add the head to the snakeSegments list in SnakeMovement
         movement.AddSnakeSegment(head);
