@@ -320,7 +320,7 @@ MonoBehaviour:
   snakeHeadPrefab: {fileID: 2073017440687426849, guid: 6da8505f9d41ff74b8a665f5038d42d9, type: 3}
   snakeBodyPrefab: {fileID: 7655048995010652361, guid: a1d16bdc9c7bd574fb5cf77a157ff058, type: 3}
   snakeTailPrefab: {fileID: 878696268661979219, guid: b182729f8e029c441a2585b65ba1184d, type: 3}
-  restartButton: {fileID: 0}
+  restartButton: {fileID: 256992752}
 --- !u!1 &1270497928
 GameObject:
   m_ObjectHideFlags: 0
