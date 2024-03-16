@@ -9,6 +9,8 @@ public class SnakeMovement : MonoBehaviour
 
     public SpawnChicken SpawnChicken;
     private Vector2 moveDirection;
+    private Vector2 bufferedDirection;
+
     public float stepDelay = 0.3f;
     private float nextStepTime;
     public GameObject snakeBodyPrefab;
@@ -33,6 +35,13 @@ public class SnakeMovement : MonoBehaviour
 
         if (Time.time >= nextStepTime)
         {
+            // Update moveDirection with the buffered direction right before moving
+            if (moveDirection != bufferedDirection)
+            {
+                moveDirection = bufferedDirection;
+                RotateSnakeHead(moveDirection); // Rotate the head here, ensuring it's in sync with the direction change
+            }
+
             Vector2 nextPosition = (Vector2)transform.position + moveDirection;
             if (!WillHitBoundary(nextPosition))
             {
@@ -83,26 +92,21 @@ public class SnakeMovement : MonoBehaviour
 
     private void HandleInput()
     {
-        // Check for input and also ensure the snake can't reverse onto itself
         if (Input.GetKeyDown(KeyCode.W) && moveDirection != Vector2.down)
         {
-            moveDirection = Vector2.up;
-            RotateSnakeHead(moveDirection);
+            bufferedDirection = Vector2.up;
         }
         else if (Input.GetKeyDown(KeyCode.S) && moveDirection != Vector2.up)
         {
-            moveDirection = Vector2.down;
-            RotateSnakeHead(moveDirection);
+            bufferedDirection = Vector2.down;
         }
         else if (Input.GetKeyDown(KeyCode.A) && moveDirection != Vector2.right)
         {
-            moveDirection = Vector2.left;
-            RotateSnakeHead(moveDirection);
+            bufferedDirection = Vector2.left;
         }
         else if (Input.GetKeyDown(KeyCode.D) && moveDirection != Vector2.left)
         {
-            moveDirection = Vector2.right;
-            RotateSnakeHead(moveDirection);
+            bufferedDirection = Vector2.right;
         }
     }
 
