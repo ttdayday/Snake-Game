@@ -143,13 +143,27 @@ public class SnakeMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Collided with: " + other.gameObject.tag);
         if (other.gameObject.CompareTag("Chicken"))
         {
             Destroy(other.gameObject);
             Grow();
             SpawnChicken.SpawnAtRandomLocation();
         }
+        else if (other.gameObject.CompareTag("SnakeBody"))
+        {
+            if (!IsFirstTwoBodySegments(other.gameObject))
+            {
+                GameOver(); // Assuming GameOver is a method that handles the game over logic
+            }
+        }
     }
+
+    private bool IsFirstTwoBodySegments(GameObject segment)
+    {
+        return segment == snakeSegments[1] || segment == snakeSegments[1];
+    }
+  
 
 
     public void SetSnakeHead(GameObject head)
@@ -196,7 +210,7 @@ public class SnakeMovement : MonoBehaviour
         }
         else
         {
-            Debug.LogError("GameManager not set in SnakeMovement.");
+            Debug.LogError("GameManager not set in SnakeMovement."); 
         }
 
     }
